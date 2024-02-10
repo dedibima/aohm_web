@@ -73,10 +73,10 @@ export default  async function Home() {
   
 <Link href="/" className={badgeVariants({ variant: "secondary" })}>Details</Link>
 <Badge variant={"" + activity.status === "APPROVED" ? "approved" : activity.status === "REJECTED" ?  "rejected" : "waiting"}> {activity.status}</Badge>
-{/* <Button variant="secondary"> Details </Button> */}
+
 
 </CardFooter>
-{/* <Separator className="my-4" /> */}
+
 
 
   </Card>
