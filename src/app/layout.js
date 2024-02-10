@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +13,35 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        
+      <nav className="flex space-x-16 ">
+       
+      <h1 className=" bg-gray-100  px-4 py-2 rounded-b-3xl"> AOHM </h1>
+       
+       
+       <div className="flex items-center">
+  {[
+    ['Home', '/dashboard'],
+    ['Activities', '/activities'],
+    ['References', '/references'],
+    ['Reports', '/reports'],
+  ].map(([title, url]) => (
+    <a href={url} key ={title} className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900">{title}</a>
+  ))}
+</div>
+
+{/* <div>
+
+</div> */}
+
+</nav>
+      
+
+
+{children}
+
+        </body>
     </html>
   );
 }
