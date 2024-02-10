@@ -1,5 +1,6 @@
 
 import Image from "next/image";
+import Link from 'next/link'
 
 import {
   Card,
@@ -10,32 +11,26 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { Badge } from "@/components/ui/badge"
+import { Badge,badgeVariants } from "@/components/ui/badge"
 
 import { Button } from "@/components/ui/button"
 
-// const getAllActivities = async () => {
-//   const result = await fetch('http://localhost:3001/users');
-//   const data = await result.data
-//   // console.log(result)
-//   console.log(data)
-//   return data
-//   // return data.json();
-// }
+import { Separator } from "@/components/ui/separator"
 
-export default  async function Home() {
+import { actOptions,reqOptions } from "@/config/formatting";
+
+const getAllActivities = async () => {
   const response = await fetch('http://localhost:3001/activities',{ next: { revalidate: 20 } })
   const obj = await response.json()
-  const {data} = await obj
+  return obj
+}
+
+export default  async function Home() {
+  const {data} = await getAllActivities()
+
   console.log(data)
 
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  }
+
 
   const finalStatus = (p1,p2) => {
 
@@ -44,7 +39,7 @@ export default  async function Home() {
   // const activities = await getAllActivities()
   return (
     <main>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-6">
         {/* <div>
          <p>list  {data[0].category}</p> 
         </div> */}
@@ -58,14 +53,32 @@ export default  async function Home() {
   </div>
 </CardHeader>
 <CardContent>
-<CardDescription>Start: {new Date(activity.start).toLocaleString('en-GB',options)} </CardDescription>
-<CardDescription>End: {new Date(activity.end).toLocaleString('en-GB',options)} </CardDescription>
+{/* <CardDescription>Callsign : {activity.callsign}</CardDescription> */}
+{/* <CardDescription>Route : {activity.origin} - {activity.destination} </CardDescription> */}
+<div className="grid grid-cols-3 gap-0">
+  <CardDescription className="col-start-1 col-end-3">Callsign</CardDescription>
+  <CardDescription className="col-end-7 col-span-2 text-right">{activity.callsign}</CardDescription>
+  <CardDescription className="col-start-1 col-end-3">Route</CardDescription>
+  <CardDescription className="col-end-7 col-span-2 text-right">{activity.origin} - {activity.destination}</CardDescription>
+  <CardDescription className="col-start-1 col-end-3">Start</CardDescription>
+  <CardDescription className="col-end-7 col-span-2 text-right">{new Date(activity.start).toLocaleString('en-GB',actOptions)} </CardDescription>
+  <CardDescription className="col-start-1 col-end-3">End</CardDescription>
+  <CardDescription className="col-end-7 col-span-2 text-right">{new Date(activity.end).toLocaleString('en-GB',actOptions)} </CardDescription>
+  
+</div>
+
 </CardContent>
-<CardFooter  className="flex justify-between ">
-  <Badge variant={"" + activity.status === "APPROVED" ? "approved" : activity.status === "REJECTED" ?  "rejected" : "waiting"}> {activity.status}</Badge>
-<Button variant="secondary"> Details </Button>
+
+<CardFooter  className="flex justify-between my-auto pt-6">
+  
+<Link href="/" className={badgeVariants({ variant: "secondary" })}>Details</Link>
+<Badge variant={"" + activity.status === "APPROVED" ? "approved" : activity.status === "REJECTED" ?  "rejected" : "waiting"}> {activity.status}</Badge>
+{/* <Button variant="secondary"> Details </Button> */}
 
 </CardFooter>
+{/* <Separator className="my-4" /> */}
+
+
   </Card>
  ))} 
 
