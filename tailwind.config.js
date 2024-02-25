@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "jit",
   darkMode: ["class"],
   content: [
     './pages/**/*.{js,jsx}',
@@ -71,7 +72,15 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        'hero-pattern': "url('/graph-paper.svg')",
+        // 'footer-texture': "url('/img/footer-texture.png')",
+        'grid' : "url('/grid.svg')"
+        
+      }
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),
+  require('@tailwindcss/forms')],
+  
 }

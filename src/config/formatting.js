@@ -1,7 +1,7 @@
 export const actOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    // year: "numeric",
+    // month: "short",
+    // day: "numeric",
     hour: "numeric",
     minute: "numeric",
   }
