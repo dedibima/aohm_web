@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/pagination"
 
 
-import { activeActivities, allActivities } from "@/lib/data";
+import { activeActivities, allActivities, getAllActivities } from "@/lib/data";
 
 import ActivityCard from "@/components/activity_card";
 
@@ -36,7 +36,8 @@ import ActivityTable from "@/components/activity_table";
 
 
 
-const lists = allActivities.data
+const lists = await getAllActivities()
+console.log(await lists.data)
 // console.log(lists)
 // const chunk2 = x.slice(1,2)
 
@@ -54,7 +55,7 @@ export default  async function Activity({searchParams}) {
  const start = (Number(page)-1) * Number(per_page)
  const end = start + Number(per_page)
 
- const entries = lists.slice(start,end)
+ const entries = lists.data && lists.data.slice(start,end)
  const last_page = Math.ceil(Number(lists.length) / Number(per_page))
 
   return (
@@ -69,16 +70,16 @@ export default  async function Activity({searchParams}) {
             <Pagination className="mt-2 mb-0 " >
   <PaginationContent className="container flex flex-row mb-0 mt-2 justify-end">
   <PaginationItem >
-      <PaginationPrevious href={`?view=${view}&${page==1 ? "" : `?page=${Number(page)-1}`}`}/>
+      <PaginationPrevious className="text-xs" href={`?view=${view}&${page==1 ? "" : `?page=${Number(page)-1}`}`}/>
     </PaginationItem>
     <PaginationItem >
-      <PaginationLink href="?page=1">1</PaginationLink>
+      <PaginationLink className="text-xs" href="?page=1">1</PaginationLink>
     </PaginationItem>
     <PaginationItem>
       <PaginationEllipsis href="" />
     </PaginationItem>
     <PaginationItem >
-      <PaginationNext href={`${page==last_page ? "" : `?page=${Number(page)+1}`}`} />
+      <PaginationNext className="text-xs" href={`${page==last_page ? "" : `?page=${Number(page)+1}`}`} />
     </PaginationItem>
   </PaginationContent>
 </Pagination>

@@ -25,7 +25,7 @@ import { allActivities } from "@/lib/data";
 
 
 const getAllActivities = async () => {
-  const response = await fetch('http://localhost:3001/activity/all',{ next: { revalidate: 300 } })
+  const response = await fetch('http://localhost:3001/activity/all')
   const obj = await response.json()
   return obj
 }

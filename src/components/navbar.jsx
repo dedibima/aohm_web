@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import  { ModeToggle }  from "@/components/ui/toggle-mode";
+import  { ModeToggle }  from "@/components/ui/toggle-mode copy";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "./ui/button";

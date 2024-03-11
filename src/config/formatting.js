@@ -1,4 +1,4 @@
-export const actOptions = {
+ const actOptions = {
     // year: "numeric",
     // month: "short",
     // day: "numeric",
@@ -7,7 +7,7 @@ export const actOptions = {
   }
 
 
-  export const reqOptions = {
+  const reqOptions = {
     year: "numeric",
     month: "short",
     day: "numeric",

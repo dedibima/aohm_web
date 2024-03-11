@@ -55,12 +55,21 @@ export default function InputForm() {
         reg:"",
         STD:"",
         STA:"",
-        DOF:""
+        days:0
       }]
     },
     
   })
 
+
+  const handleCheckboxChange = (aircraftIndex, day, isChecked) => {
+    const currentDays = watch(`aircrafts[${aircraftIndex}].days`) || 0;
+    if (isChecked) {
+      setValue(`aircrafts[${aircraftIndex}].days`, currentDays | (1 << day));
+    } else {
+      setValue(`aircrafts[${aircraftIndex}].days`, currentDays & ~(1 << day));
+    }
+  };
 
 
   const [status,setStatus] = useState(false)

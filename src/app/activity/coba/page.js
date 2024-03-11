@@ -1,18 +1,5 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { Input } from "@/components/ui/input";
 
 import {
   Select,
@@ -21,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -29,26 +15,29 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 
+import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox.jsx";
+import { Button } from "@/components/ui/button";
+import {Card} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
-import Link from "next/link";
+
+
+
+
+
 
 export default function InputForm() {
-  const form = useForm({
+const form = useForm({
     defaultValues: {
       category: "",
       reason: "",
-      callsign: "",
-      origin: "",
-      destination: "",
       period_start: "",
       period_end: "",
-      start: "",
-      end: "",
       aircrafts: [
         {
           callsign: "",
@@ -58,35 +47,36 @@ export default function InputForm() {
           reg: "",
           STD: "",
           STA: "",
-          DOF: "",
+          days: 0,
+          daysOfWeek: 0
         },
       ],
     },
   });
 
-  const dynamic = useFieldArray({
+const dynamic = useFieldArray({
     control: form.control,
     name: "aircrafts",
   });
 
   const { fields } = dynamic;
-
   const [status, setStatus] = useState(false);
+  const [check,setCheck] = useState(0)
   const { toast } = useToast();
 
   const sendData = async (data) => {
     try {
-      const res = await fetch("http://localhost:3001/activity/create", {
+      const res = await fetch("http://localhost:3001/activity/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      console.log(await res);
+
       const result = await res.json();
       setStatus(res.status);
-      // console.log(await result.message)
+
 
       await toast({
         title: "You submitted the following values:",
@@ -119,14 +109,37 @@ export default function InputForm() {
     }
   };
 
-async function coba(data){
-  console.log(data)
-}
+
+  const handleCheckedChange = (checked, value, index) => {
+    let updatedDays = form.getValues(`aircrafts.${index}.days`);
+    const dayValue = parseInt(value);
+    if (checked) {
+      updatedDays |= dayValue;
+    } else {
+      updatedDays &= ~dayValue;
+    }
+    form.setValue(`aircrafts.${index}.days`,updatedDays)
+  };
+
 
   async function onSubmit(data) {
-    // sendData(data);
-    coba(data)
+    console.log(data)
+    sendData(data);
   }
+
+
+
+
+
+  const daysOfWeek = [
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 4, label: '3' },
+    { value: 8, label: '4' },
+    { value: 16, label: '5' },
+    { value: 32, label: '6' },
+    { value: 64, label: '7' },
+  ];
 
   return (
     <main>
@@ -135,7 +148,7 @@ async function coba(data){
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full py-4 space-y-4 mx-auto px-4 "
-          >
+           >
             <label className="font-semibold ">Request Details</label>
             <Separator className="mt-1"/>
 
@@ -157,8 +170,8 @@ async function coba(data){
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="extend">Extend</SelectItem>
-                      <SelectItem value="advance">Advance</SelectItem>
+                      <SelectItem value="Extend">Extend</SelectItem>
+                      <SelectItem value="Advance">Advance</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -184,14 +197,14 @@ async function coba(data){
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="weather">Weather</SelectItem>
-                      <SelectItem value="operational">Operational</SelectItem>
-                      <SelectItem value="technical">Technical</SelectItem>
-                      <SelectItem value="vip">VIP</SelectItem>
-                      <SelectItem className="italic" value="force majeur">
+                      <SelectItem value="Weather">Weather</SelectItem>
+                      <SelectItem value="Operational">Operational</SelectItem>
+                      <SelectItem value="Technical">Technical</SelectItem>
+                      <SelectItem value="Vip">VIP</SelectItem>
+                      <SelectItem className="italic" value="Force Majeur">
                         Force Majeur
                       </SelectItem>
-                      <SelectItem value="other">Extend</SelectItem>
+                      <SelectItem value="Other">Other (Please Specify) </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -202,7 +215,7 @@ async function coba(data){
             <div
               id="period_selector"
               className="flex flex-row space-x-8 justify-between "
-            >
+              >
               <FormField
                 className="flex"
                 control={form.control}
@@ -342,6 +355,8 @@ async function coba(data){
                           </FormItem>
                         )}
                       />
+
+
                       <FormField
                        
                         className="flex flex-col"
@@ -372,6 +387,7 @@ async function coba(data){
                         control={form.control}
                         name={`aircrafts.${index}.STD`}
                         render={({ field }) => (
+                          
                           <FormItem className="w-1/2">
                             <FormLabel>STD</FormLabel>
                             <FormControl>
@@ -408,6 +424,42 @@ async function coba(data){
                         )}
                       />
                     </div>
+                 
+                    <FormField
+                  className="flex flex-col w-full"
+                  control={form.control}
+                  name={`aircrafts.${index}.days`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Days of Week</FormLabel>
+                      
+                      <div className="flex flex-row justify-between">
+                        {daysOfWeek.map((day) => (
+                          <div key={day.label} className="flex flex-col items-center">
+                          
+
+                  <FormControl>
+                  <Checkbox
+                  className=" my-2"
+                    checked={field.day}
+                    onCheckedChange={(checked) =>
+                    handleCheckedChange(checked, day.value, index)
+                    }
+                            > 
+                  </Checkbox>
+                  </FormControl>
+
+                  <FormLabel className="mx-2  leading-normal">{day.label}</FormLabel>
+                          </div>
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                /> 
+                  
+                
+
                     {index > 0 && (
                       <Button
                         className="mr-2 my-2 text-xs"
@@ -416,22 +468,30 @@ async function coba(data){
                         onClick={() => dynamic.remove(index)}
                       >
                         Delete Aircraft
-                        {/* <X size={16} className="mx-2"/> */}
                       </Button>
                     )}
                     <Separator />
                   </div>
                 );
               })}
-              <div className="">
+
+              <div id="addAircraft">
                 <Button
                   variant="outline"
                   className="mr-2 my-4 text-xs w-full "
-                  // size="icon"
-                  onClick={() => dynamic.append()}
+                  type="button"
+                  onClick={() => dynamic.append({
+                    callsign:"",
+                    reg:"",
+                    type:"",
+                    origin:"",
+                    destination:"",
+                    STD:"",
+                    STA:"",
+                    days:0
+                })}
                 >
                   Add Aircraft
-                  {/* <Plus /> */}
                 </Button>
               </div>
             </div>

@@ -41,7 +41,7 @@ import { actOptions,reqOptions } from "@/config/formatting";
       
           
    {arr.map(activity => (
-    <Card  className="bg-secondary/10 hover:bg-secondary " key={activity.activityID}>
+    <Card  className="bg-secondary/10 hover:bg-secondary " key={activity.id}>
   <CardHeader>
     <div>
     <CardTitle className="text-secondary-foreground">{activity.category? activity.category : "undefined"}</CardTitle>

@@ -8,6 +8,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import { parseBitmask } from "@/lib/data"
 
 
 import moment from "moment"
@@ -18,29 +19,33 @@ export default async function ActivityTable({arr}) {
         <div>
         
 
-<Table className="text-center text-xs mb-12">
-<TableHeader className="border-2 bg-secondary border-black/5">
+<Table className="text-center text-xs mb-12 py-0 rounded-md">
+<TableHeader className="">
   <TableRow>
-    <TableHead rowSpan={2} className="text-center ">CALLSIGN</TableHead>
-    <TableHead rowSpan={2}className="text-center ">ROUTE</TableHead>
-    <TableHead colSpan={2} className="text-center">PERIOD</TableHead>
-    <TableHead rowSpan={2} className="text-center">OH REQ</TableHead>
-    <TableHead rowSpan={2} className="text-center">STATUS</TableHead>
-  </TableRow>
-  <TableRow>
-    <TableHead className="text-center">START</TableHead>
-    <TableHead className="text-center">END</TableHead>
+    {/* <TableHead rowSpan={1} colSpan={1} className="text-center ">REQ NO.</TableHead> */}
+    <TableHead rowSpan={1} className="text-center ">INITIATOR</TableHead>
+    <TableHead rowSpan={1} className="text-center">CATEGORY</TableHead>
+    <TableHead className="text-center">START DATE</TableHead>
+    <TableHead className="text-center">END DATE</TableHead>
+    {/* <TableHead colSpan={2} className="text-center">PERIOD</TableHead> */}
+    <TableHead rowSpan={1} className="text-center ">AIRCRAFT </TableHead>
+    <TableHead rowSpan={1} className="text-center ">DOW </TableHead>
+    <TableHead rowSpan={1} className="text-center">OH REQ</TableHead>
+    <TableHead rowSpan={1} className="text-center">STATUS</TableHead>
   </TableRow>
 </TableHeader>
-<TableBody className="border-2 border-black/5">
+<TableBody className="">
 {arr.map(activity => (
   <TableRow key={activity.id}>
-    <TableCell className="font-medium">{activity.callsign}</TableCell>
-    <TableCell>{activity.origin} - {activity.destination} </TableCell>
-    <TableCell>{moment((activity.period_start)).format('DD-MM-YYYY')} </TableCell>
-    <TableCell>{moment((activity.end)).format('DD-MM-YYYY')} </TableCell>
+    {/* <TableCell className="font-medium">{activity.id}</TableCell> */}
+    <TableCell>{activity.submitted_by}</TableCell>
+    <TableCell>{activity.category}</TableCell>
+    <TableCell>{moment((activity.date_start)).format('DD-MM-YYYY')} </TableCell>
+    <TableCell>{moment((activity.date_end)).format('DD-MM-YYYY')} </TableCell>
+    <TableCell>{activity.days} </TableCell>
+    <TableCell className="text-center"></TableCell>
     <TableCell>{activity.start}Z - {activity.end}Z</TableCell>
-    <TableCell className="text-center">{activity.status}</TableCell>
+    <TableCell className="text-center"></TableCell>
   </TableRow>
 )     )}
 </TableBody>

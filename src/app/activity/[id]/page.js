@@ -17,17 +17,13 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-  import { airnav } from "@/lib/stakeholder.js"
+import { getActivity } from '@/lib/data'
   
 
-const getActivity = async (id) =>{
-    const response = await fetch(`http://localhost:3001/activity/${id}` ,{ next: { revalidate: 300 } })
-    const obj = await response.json()
-    return obj
-  }
+
 
 const getUser = async (id) =>{
-    const response = await fetch(`http://localhost:3001/users/${id}`,{ next: { revalidate: 300 } })
+    const response = await fetch(`http://localhost:3001/users/${id}`)
     const obj = await response.json()
     return obj
 }
@@ -50,7 +46,7 @@ export default async function page({params}) {
         </div>
 
         <div className='grid grid-cols-3 mx-2 mt-12 text-sm text-pretty'>
-        <p className='mb-12 col-span-7 text-sm'>Request No. : {`#${activity.id}/${activity.category.slice(0,3)}`} </p>
+        <p className='mb-12 col-span-7 text-sm'>Request No. : {activity.id} </p>
         <p className='mb-12 col-span-7' >Kepada YTH. Perum LPPNPI Cabang Ambon </p>
         <p className='col-span-7'> Dengan Hormat,</p>
 <p className='col-span-7 mb-12'>Berikut ini kami sampaikan permohonan <span className='normal-case font-semibold'>{activity.category} </span>disebabkan alasan <span className='lowercase font-semibold'>{activity.reason}</span> dengan detail:</p>
@@ -85,7 +81,7 @@ export default async function page({params}) {
       <TableCell>{activity.origin} - {activity.destination} </TableCell>
       <TableCell>{activity.origin} - {activity.destination} </TableCell>
       <TableCell>{activity.origin} - {activity.destination} </TableCell>
-      <TableCell>{activity.start.slice(0,5)}Z - {activity.end.slice(0,5)}Z</TableCell>
+      {/* <TableCell>{activity.start.slice(0,5)}Z - {activity.end.slice(0,5)}Z</TableCell> */}
       <TableCell className="text-center">22 Feb 2024</TableCell>
     </TableRow>
   </TableBody>
