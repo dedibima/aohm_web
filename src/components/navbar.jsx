@@ -14,7 +14,8 @@ import Link from 'next/link'
 
 const menuItems = [
 ['Home', '/'],
-['Activities', '/activity'],
+['New Request', '/activity/coba'],
+['My Request', '/activity'],
 ['References', '/references'],
 ['Reports', '/reports'],
 ['Profile', '/user']

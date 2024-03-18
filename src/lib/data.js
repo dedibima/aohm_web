@@ -1,8 +1,8 @@
-import { useAuthStore } from "./AuthStore"; 
+import axios, { privateAxios } from "./hooks/axios";
 
 
 
-const daysOfWeek = [
+export const daysOfWeek = [
   { value: 1, label: 'Monday' },
   { value: 2, label: 'Tuesday' },
   { value: 4, label: 'Wednesday' },
@@ -27,41 +27,69 @@ const parseBitmask = (bitmask) => {
 
 
 const getActivity = async (id) =>{
-  const response = await axios.get(`http://localhost:3001/activity/${id}`,axiosConfig)
-  const obj = await response.json()
-  return obj
+try {
+  const response = await privateAxios.get(`/activity/${id}`)
+  console.log(response,"ajskdj")
+  return response
+} catch (error) {
+  console.log(error)
+}
+
 }
 
 
 
 const getAllActivities = async () => {
-    const response = await fetch('http://localhost:3001/activity/all')
-    const obj = await response.json()
-    return obj
+  try {
+    const response = await privateAxios.get('http://localhost:3001/activity/all2')
+    return response.data
+  } catch (error) {
+    console.log(error.response)
+    return error
+  }
   }
 
-  const allActivities = await getAllActivities()
+
 
 
   const getActiveActivities = async () =>{
-    const response = await fetch('http://localhost:3001/activity/active')
-    const obj = await response.json()
-    return obj
+    try {
+      const response =  await privateAxios.get('http://localhost:3001/activity/active')
+      const obj = await response.json()
+      return obj
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const activeActivities = await getActiveActivities()
+
 
 
   const getUser = async (id) =>{
-    const response = await fetch(`http://localhost:3001/users/${id}`)
-    const obj = await response.json()
-    return obj
+    try {
+      const response =  await privateAxios.get(`http://localhost:3001/users/${id}`)
+      const obj = await response.json()
+      return obj
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
+const authenticateUser = async (data) => {
+  try {
+    const response = await axios.post('/login', data, {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+      })
+      return response.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
 
 
 
 
-
-  export {allActivities, activeActivities,getUser,getAllActivities,parseBitmask,getActivity,axiosConfig}
+  export {getActiveActivities,getUser,getAllActivities,parseBitmask,getActivity,authenticateUser}

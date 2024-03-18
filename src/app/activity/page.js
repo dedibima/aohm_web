@@ -24,13 +24,13 @@ import ActivityCard from "@/components/activity_card";
 import { allActivities } from "@/lib/data";
 
 
-const getAllActivities = async () => {
-  const response = await fetch('http://localhost:3001/activity/all')
-  const obj = await response.json()
-  return obj
-}
+// const getAllActivities = async () => {
+//   const response = await fetch('http://localhost:3001/activity/all')
+//   const obj = await response.json()
+//   return obj
+// }
 
-const entries = allActivities.data
+// const entries = allActivities.data
 
 
 
@@ -42,14 +42,14 @@ export default  async function Activity({searchParams}) {
   // const activities = await getAllActivities()
   return (
     <main>
-    
+{/*     
     <ActivityCard arr={entries}/>
 <div class="my-6 bottom-4 left-30">
     <Button className="rounded-full">
 <Link href="/activity/create"> Create New</Link>
 
     </Button>
-</div>
+</div> */}
    </main>
 
   );

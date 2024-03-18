@@ -1,4 +1,4 @@
-"use server"
+
 import Link from 'next/link'
 
 import moment from 'moment'
@@ -27,7 +27,7 @@ import { actOptions,reqOptions } from "@/config/formatting";
 //   const newData = Array.from({length: data.length / 9},(_,i) => i ++)
 //   console.log(newData)
   
-  export default  async function ActivityCard({arr}) {
+  export default function ActivityCard({arr}) {
     // const {data} = await getAllActivities()
     // console.log("this is the data",data)
     
