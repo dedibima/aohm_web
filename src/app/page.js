@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/pagination"
 
 
-// import { getAllActivities } from "@/lib/data";
+
 
 // import ActivityCard from "@/components/activity_card";
 
@@ -37,11 +37,6 @@ import ActivityTable from "@/components/activity_table";
 
 
 
-
-// console.log(lists)
-// const chunk2 = x.slice(1,2)
-
-// console.log(chunk2,"chunk2")
 
 
 export default  function Activity({searchParams}) {
