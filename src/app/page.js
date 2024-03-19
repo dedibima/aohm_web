@@ -84,8 +84,8 @@ getAllActivities()
 
 
             
-            <h2 className="text-secondary-foreground p-4 py-4">Active Requests</h2>
-            <Pagination className="mt-2 mb-0 " >
+            <h2 className="text-secondary-foreground py-2">Active Requests</h2>
+            <Pagination className="my-2 " >
   <PaginationContent className="container flex flex-row mb-0 mt-2 justify-end px-0">
   <PaginationItem >
       <PaginationPrevious className="text-xs" href={`${page==1 ? "" : `?page=${Number(page)-1}`}`}/>

@@ -22,13 +22,13 @@ import moment from "moment"
 export default function ActivityTable({arr}) {
 const arr2=[]
     return (
-        <div className="w-full">
+        <div className="border rounded-lg w-full">
         
 
-<Table variant="surface" className="text-xs mb-12 py-0 rounded-lg border-2">
+<Table variant="surface" className="text-xs">
 <TableHeader className="text-center">
-  <TableRow>
-    {/* <TableHead  className="text-center ">No.</TableHead> */}
+  <TableRow className="bg-primary/10 ring-blue-400 ">
+    <TableHead  className="text-center ">No.</TableHead>
     <TableHead  className="text-center">CATEGORY</TableHead>
     <TableHead className="text-center">START DATE</TableHead>
     <TableHead className="text-center">END DATE</TableHead>
@@ -36,25 +36,32 @@ const arr2=[]
     <TableHead className="text-center ">DOW </TableHead> */}
     <TableHead  className="text-center">OH REQ</TableHead>
     <TableHead  className="text-center">STATUS</TableHead> 
-    <TableHead   className="text-center">Aircraft </TableHead>
+    <TableHead   className="text-center">AIRCRAFTS </TableHead>
   </TableRow>
 </TableHeader>
 
 <TableBody className="">
-{arr.map(activity => (
+{arr.map((activity,index) => (
   <Collapsible asChild key={activity.id} >
     <>
-  <TableRow className="text-center">
-    {/* <TableCell>{activity.submitted_by}</TableCell> */}
-    <TableCell>{activity.category}</TableCell>
-    <TableCell>{moment((activity.date_start)).format('DD-MM-YYYY')} </TableCell>
-    <TableCell>{moment((activity.date_end)).format('DD-MM-YYYY')} </TableCell>
+  <TableRow className="text-center [&>*]:p-1">
+    <TableCell>{index+1}</TableCell>
+    <TableCell >{activity.category}</TableCell>
+    <TableCell >{moment((activity.date_start)).format('DD-MM-YYYY')} </TableCell>
+    <TableCell >{moment((activity.date_end)).format('DD-MM-YYYY')} </TableCell>
     {/* <TableCell>{activity.days} </TableCell>
     <TableCell className="text-center"></TableCell> */}
-    <TableCell>{activity.start}Z - {activity.end}Z</TableCell>
-    <TableCell className="text-center"></TableCell>
+    <TableCell >{activity.start}Z - {activity.end}Z</TableCell>
+    <TableCell ></TableCell>
     <TableCell > 
-    <CollapsibleTrigger asChild><div> {">"} </div></CollapsibleTrigger>
+    <CollapsibleTrigger asChild><div> {activity.aircrafts.map(aircraft => 
+      
+      
+      aircraft.callsign
+      
+      ).join(", ")}<br/>
+      <span className="text-primary/70"> (Expand) </span>
+       </div></CollapsibleTrigger>
     </TableCell>
     
     </TableRow>
@@ -66,9 +73,9 @@ const arr2=[]
       
 
     
-        <Table  className="text-xs text-center ">
-    <TableHeader className=" ">
-      <TableRow >
+        <Table  className="text-xs text-center p-0">
+    <TableHeader className="">
+      <TableRow className="">
         <TableHead className="text-center">CALLSIGN</TableHead>
         <TableHead className="text-center">REG</TableHead>
         <TableHead className="text-center">ROUTE</TableHead>
@@ -78,8 +85,8 @@ const arr2=[]
       </TableRow>
     </TableHeader>
 
-      {activity.aircrafts.map(aircraft => (
-    <TableBody key={aircraft.id}>
+      {activity.aircrafts.map((aircraft,index) => (
+    <TableBody key={index}>
   <TableRow  className="text-center">
     <TableCell>{aircraft.callsign}</TableCell>
     <TableCell>{aircraft.reg}</TableCell>
@@ -115,6 +122,9 @@ const arr2=[]
 )     )}
 </TableBody>
 </Table>
+
+
+
 </div>
     )}
 
