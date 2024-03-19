@@ -124,7 +124,7 @@ const LoginPage =  () => {
 
   return (
 <main>
-<div className=" space-y-8 w-6/12 py-32 px-16 pt-8 mx-auto  border-2 rounded-lg" >
+<div className=" space-y-8 sm:w-6/12 sm:py-32 sm:px-16 pt-8 mx-auto  border-2 rounded-lg w-3/4 " >
 <h2>Login Form</h2>
 <Form {...form}>
       <form onSubmit={form.handleSubmit(submitHandler)} className="space-y-8">

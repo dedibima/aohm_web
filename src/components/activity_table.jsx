@@ -66,7 +66,7 @@ const arr2=[]
       
 
     
-        <Table  className="py-20 text-xs text-center ">
+        <Table  className="text-xs text-center ">
     <TableHeader className=" ">
       <TableRow >
         <TableHead className="text-center">CALLSIGN</TableHead>
@@ -80,14 +80,13 @@ const arr2=[]
 
       {activity.aircrafts.map(aircraft => (
     <TableBody key={aircraft.id}>
-  <TableRow key={aircraft.id} className="text-center">
+  <TableRow  className="text-center">
     <TableCell>{aircraft.callsign}</TableCell>
-  
     <TableCell>{aircraft.reg}</TableCell>
     <TableCell>{aircraft.origin} - {aircraft.destination} </TableCell>
     <TableCell>{aircraft.days}</TableCell>
-    <TableCell>{aircraft.STD}</TableCell>
-    <TableCell>{aircraft.STA}</TableCell>
+    <TableCell>{(aircraft.STD).slice(0,5)}</TableCell>
+    <TableCell>{(aircraft.STA).slice(0,5)}</TableCell>
   </TableRow>
 </TableBody>
 )

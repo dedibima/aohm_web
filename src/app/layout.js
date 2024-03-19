@@ -1,16 +1,16 @@
 
 
 import { Inter } from "next/font/google";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 import { ThemeProvider } from "@/components/theme-provider"
-import  { ModeToggle }  from "@/components/ui/toggle-mode";
+
 import { Toaster } from "@/components/ui/toaster"
 
 
 import "./globals.css";
 
 // import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+
 import Navbar from "@/components/navbar";
 
 
@@ -26,13 +26,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   
   return (
-    <html lang="en" >
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}   >
       <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-            
+            disableTransitionOnChange
       >
         <Navbar/>
         {children}

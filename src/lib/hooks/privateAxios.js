@@ -23,6 +23,10 @@ const usePrivateAxios = () => {
                     config.headers['Authorization'] = `Bearer ${accessToken}`;
                 }
                 return config;
+            },
+            request => {
+                console.log(request,"req")
+                return request
             }, (error) => Promise.reject(error)
         );
 
