@@ -65,8 +65,11 @@
 }
 
 
-main, nav {
-  @apply max-w-6xl mx-auto mb-12 mt-0;
+nav {
+  @apply  mt-0;
+}
+main{
+  @apply w-full pl-[57px]
 }
 p {
   @apply mt-2;

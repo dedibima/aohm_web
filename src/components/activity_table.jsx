@@ -1,4 +1,7 @@
 "use client"
+import {ChevronDownCircle,Circle} from "lucide-react"
+
+
 import {
     Table,
     TableBody,
@@ -17,21 +20,22 @@ import {
   } from "@/components/ui/collapsible"
 
 
+
 import moment from "moment"
 
 export default function ActivityTable({arr}) {
 const arr2=[]
     return (
-        <div className="border rounded-lg w-full">
+        <div className="border rounded-xl w-full ">
         
 
 <Table variant="surface" className="text-xs">
 <TableHeader className="text-center">
-  <TableRow className="bg-primary/10 ring-blue-400 ">
-    <TableHead  className="text-center ">No.</TableHead>
+  <TableRow className=" ring-blue-400  ">
+    <TableHead  className="text-center text-primary/50">No.</TableHead>
     <TableHead  className="text-center">CATEGORY</TableHead>
-    <TableHead className="text-center">START DATE</TableHead>
-    <TableHead className="text-center">END DATE</TableHead>
+    {/* <TableHead className="text-center">START DATE</TableHead> */}
+    <TableHead className="text-center">DATE START - END</TableHead>
     {/* <TableHead  className="text-center ">AIRCRAFT </TableHead>
     <TableHead className="text-center ">DOW </TableHead> */}
     <TableHead  className="text-center">OH REQ</TableHead>
@@ -44,15 +48,16 @@ const arr2=[]
 {arr.map((activity,index) => (
   <Collapsible asChild key={activity.id} >
     <>
-  <TableRow className="text-center [&>*]:p-1">
-    <TableCell>{index+1}</TableCell>
-    <TableCell >{activity.category}</TableCell>
-    <TableCell >{moment((activity.date_start)).format('DD-MM-YYYY')} </TableCell>
-    <TableCell >{moment((activity.date_end)).format('DD-MM-YYYY')} </TableCell>
+  <TableRow className="text-center [&>*]:p-3 ">
+    <TableCell justify="start" width="10px">{index+1}</TableCell>
+    <TableCell className="font-semibold text-primary">{activity.category.toUpperCase()}</TableCell>
+    {/* <TableCell >{moment((activity.date_start)).format('DD-MM-YYYY')} </TableCell> */}
+    <TableCell className="font-semibold">{moment((activity.date_start)).format('DD-MM-YYYY')} <br/> 
+                {moment((activity.date_end)).format('DD-MM-YYYY')} </TableCell>
     {/* <TableCell>{activity.days} </TableCell>
     <TableCell className="text-center"></TableCell> */}
-    <TableCell >{activity.start}Z - {activity.end}Z</TableCell>
-    <TableCell ></TableCell>
+    <TableCell className="font-semibold">{activity.start}Z - {activity.end}Z</TableCell>
+    <TableCell > <Circle size={20} /> </TableCell>
     <TableCell > 
     <CollapsibleTrigger asChild><div> {activity.aircrafts.map(aircraft => 
       
@@ -60,23 +65,24 @@ const arr2=[]
       aircraft.callsign
       
       ).join(", ")}<br/>
-      <span className="text-primary/70"> (Expand) </span>
+      <span className="text-muted-foreground font-semibold"> (Expand) </span>
        </div></CollapsibleTrigger>
     </TableCell>
     
     </TableRow>
     
   <CollapsibleContent asChild >
-    <TableRow className="bg-secondary/50 text-center">
+    <TableRow className="bg-secondary/90 text-center [&>*]:p-0">
 
     <TableCell className="text-center" colSpan={6}>
       
 
     
-        <Table  className="text-xs text-center p-0">
+      <h3 className="font-bold text-lg text-left p-4 text-muted-foreground">Aircraft Details</h3>
+        <Table  className="text-xs">
     <TableHeader className="">
-      <TableRow className="">
-        <TableHead className="text-center">CALLSIGN</TableHead>
+      <TableRow className="[&>th]:border-b [&>th]:border-t">
+        <TableHead className="text-center ">CALLSIGN</TableHead>
         <TableHead className="text-center">REG</TableHead>
         <TableHead className="text-center">ROUTE</TableHead>
         <TableHead className="text-center">DAYS</TableHead>

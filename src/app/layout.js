@@ -7,11 +7,13 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
 
+import Side from "@/components/sidebar";
 import "./globals.css";
 
 // import { usePathname } from 'next/navigation'
 
-import Navbar from "@/components/navbar";
+// import Navbar from "@/components/navbar";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,15 +29,19 @@ export default function RootLayout({ children }) {
   
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`}   >
+      <body className={`${inter.className} ` }   >
       <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-      >
-        <Navbar/>
+            >
+
+<Side/>
+      <main className="w-full h-full">
+        {/* <Navbar/> */}
         {children}
+        </main>
 
       </ThemeProvider>
        <Toaster />

@@ -84,7 +84,7 @@ getAllActivities()
 
 
             
-            <h2 className="text-secondary-foreground py-2">Active Requests</h2>
+            <h2 className="text-primary py-2">Active Requests</h2>
             <Pagination className="my-2 " >
   <PaginationContent className="container flex flex-row mb-0 mt-2 justify-end px-0">
   <PaginationItem >
